@@ -1,0 +1,7 @@
+User-agent: *
+
+Disallow: /register/
+Disallow: /login/
+Disallow: /account/
+
+Sitemap: https://api.genkai.online/sitemap/

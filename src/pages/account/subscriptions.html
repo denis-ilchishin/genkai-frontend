@@ -1,0 +1,98 @@
+<template>
+  <v-card>
+    <v-toolbar v-bind="$settings.toolbar_attrs">
+      <v-toolbar-title>
+        {{ $helpers.c($t('account.subscriptions.title')) }}
+      </v-toolbar-title>
+    </v-toolbar>
+    <v-card-text>
+      <v-list v-if="$auth.user.subscriptions.length">
+        <v-list-item v-for="title in titles" :key="title.slug" :to="{
+            name: 'title-slug',
+            params: {
+              slug: title.slug,
+            },
+          }" color="primary" three-line flat class="flex-grow-1 pa-xs-0">
+          <v-list-item-avatar :size="imageIconSize" tile>
+            <BaseImage :image-set="title.poster" :image-size="imageSize" :title="title.name" :alt="title.name"
+              :max-height="`${imageIconSize}px`" class="rounded-sm" />
+          </v-list-item-avatar>
+
+          <v-list-item-content>
+            <v-list-item-subtitle>
+              <TitleStatusChip :title="title" x-small />
+            </v-list-item-subtitle>
+
+            <v-list-item-title class="font-weight-medium">
+              {{ title.name }}
+            </v-list-item-title>
+
+            <v-list-item-subtitle>
+              {{
+                title.translators
+                  .map((translator) => translator.name)
+                  .join(', ')
+              }}
+            </v-list-item-subtitle>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
+      <div v-else class="text-center pt-4">
+        {{ $t('account.subscriptions.noRecords') }}
+      </div>
+    </v-card-text>
+  </v-card>
+</template>
+
+<script>
+  import { mapGetters } from 'vuex'
+  export default {
+    middleware: ['user'],
+    data() {
+      return {
+        imageSize: 'small',
+        imageIconSize: 50,
+      }
+    },
+    computed: {
+      ...mapGetters('config', ['types']),
+      titles() {
+        const titles = []
+
+        for (const subscription of this.$auth.user.subscriptions) {
+          let title = titles.find(
+            (title) => title.slug === subscription.title.slug
+          )
+
+          if (title !== undefined) {
+            title.translators.push(subscription.translator)
+          } else {
+            title = subscription.title
+            title.translators = [subscription.translator]
+
+            titles.push(title)
+          }
+        }
+
+        return titles
+      },
+    },
+    head() {
+      return {
+        title: this.$t('meta.accountSubscriptions.title'),
+        meta: [
+          {
+            name: 'description',
+            vmid: 'description',
+            content: this.$t('meta.accountSubscriptions.metas.description'),
+          },
+          {
+            name: 'robots',
+            vmid: 'robots',
+            content: 'noindex',
+          },
+        ],
+      }
+    },
+  }
+</script>

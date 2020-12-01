@@ -1,0 +1,24 @@
+version: "3.8"
+
+volumes:
+  pg_data:
+
+x-default-opts: &default-opts
+  ports: []
+  labels: []
+
+services:
+  frontend:
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: ./compose/prod/Dockerfile
+    command:
+      - sh
+      - -c
+      - $$SOURCE_DIR/start.sh
+    env_file: ./compose/prod/.env
+    volumes:
+      - ./volumes/dist/:/home/container/app/src/_dist/
+      - ./volumes/static/:/home/container/app/src/_static/
+      - ./volumes/nuxt/:/home/container/app/src/nuxt/

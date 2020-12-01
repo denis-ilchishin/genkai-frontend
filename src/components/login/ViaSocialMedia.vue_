@@ -1,0 +1,123 @@
+<template>
+  <div>
+    <div class="d-flex flex-column justify-center">
+      <div class="d-flex align-items-center align-center my-4">
+        <v-divider />
+        <span class="mx-4">или</span>
+        <v-divider />
+      </div>
+      <div v-show="!auth" class="d-flex flex-column justify-center">
+        <v-btn
+          @click="
+            viaTelegram({
+              id: 378252382,
+              first_name: 'Denis',
+              last_name: 'Ilchishin',
+              username: 'denis_ilchishin',
+              auth_date: 1603256913,
+              hash:
+                'cbc875b0cad310a623aabd3d1a43dda19462478d37d305f6e7d2cab7f9bc3701',
+            })
+          "
+          >log</v-btn
+        >
+        <LoginTelegram
+          mode="callback"
+          telegram-login="genkai_bot"
+          @callback="viaTelegram"
+        />
+      </div>
+      <div>
+        <v-text-field
+          v-model.trim="username"
+          :label="$t('login.fields.username.label')"
+          :error="$v.username.$invalid && $v.username.$dirty"
+          :error-messages="
+            getInputErrorMessage(
+              $v.username,
+              $t('login.fields.username.errors'),
+              true
+            )
+          "
+          filled
+          dense
+          rounded
+          class="rounded-lg"
+          @blur="$v.username.$touch()"
+        />
+      </div>
+    </div>
+  </div>
+</template>
+
+<script lang="ts">
+import {
+  defineComponent,
+  useContext,
+  PropType,
+  ref,
+} from '@nuxtjs/composition-api'
+import { useCommon } from '~/composables/common'
+
+type Auth = { method: 'telegram'; data: any }
+
+export default defineComponent({
+  props: {
+    waiter: {
+      type: String,
+      required: true,
+    },
+  },
+  setup(props) {
+    const {
+      $axios,
+      $auth,
+      $recaptcha,
+      $wait,
+      $toast,
+      app: { router },
+    } = useContext()
+
+    const username = ref<String | null>(null)
+    const auth = ref<Auth | null>(null)
+
+    const authenticate = (auth: Auth) => {
+      $wait.start(props.waiter)
+      $recaptcha()
+        .then((captcha) => {
+          $axios
+            .$post(`/auth/${auth.method}/`, {
+              username: username.value,
+              data: auth.data,
+              captcha,
+            })
+            .then(({ access, refresh }) => {
+              $auth.setUserToken(access, refresh).then(() => {
+                router?.push({ name: 'account' })
+              })
+            })
+            .catch((err) => {
+              $toast.error(err.response.data.detail)
+            })
+            .finally(() => {
+              $wait.end(props.waiter)
+            })
+        })
+        .catch(() => {
+          $wait.end(props.waiter)
+        })
+    }
+
+    const viaTelegram = (data: any) => {
+      auth.value = { method: 'telegram', data }
+    }
+
+    return { viaTelegram, auth, username }
+  },
+  validations() {
+    return { username }
+  },
+})
+</script>
+
+<style></style>

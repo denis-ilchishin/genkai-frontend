@@ -1,0 +1,174 @@
+@import '~vuetify/src/styles/styles.sass';
+
+// Base variables
+$body-font-family: 'Proxima Nova', sans-serif;
+$heading-font-family: 'Century Gothic', sans-serif;
+$border-radius-root: 0.5rem;
+$headings: (
+  'h1': (
+    'size': 4rem,
+    'weight': 300,
+    'line-height': 6rem,
+    'letter-spacing': -0.015625em,
+    'font-family': $heading-font-family,
+  ),
+  'h2': (
+    'size': 3rem,
+    'weight': 400,
+    'line-height': 3.75rem,
+    'letter-spacing': -0.0083333333em,
+    'font-family': $heading-font-family,
+  ),
+  'h3': (
+    'size': 2.125rem,
+    'weight': 500,
+    'line-height': 3.125rem,
+    'letter-spacing': normal,
+    'font-family': $heading-font-family,
+  ),
+  'h4': (
+    'size': 1.75rem,
+    'weight': 600,
+    'line-height': 2.5rem,
+    'letter-spacing': 0.0073529412em,
+    'font-family': $heading-font-family,
+  ),
+  'h5': (
+    'size': 1.35rem,
+    'weight': 600,
+    'line-height': 2rem,
+    'letter-spacing': normal,
+    'font-family': $heading-font-family,
+  ),
+  'h6': (
+    'size': 1.15rem,
+    'weight': 600,
+    'line-height': 2rem,
+    'letter-spacing': 0.0025em,
+    'font-family': $heading-font-family,
+  ),
+  'subtitle-1': (
+    'size': 1rem,
+    'weight': 400,
+    'line-height': 1.75rem,
+    'letter-spacing': 0.009375em,
+    'font-family': $body-font-family,
+  ),
+  'subtitle-2': (
+    'size': 0.875rem,
+    'weight': 500,
+    'line-height': 1.275rem,
+    'letter-spacing': 0.0071428571em,
+    'font-family': $body-font-family,
+  ),
+  'body-2': (
+    'size': 0.725rem,
+    'weight': 400,
+    'letter-spacing': 0.0078571429em,
+    'line-height': 1.15rem,
+    'font-family': $body-font-family,
+  ),
+  'body-1': (
+    'size': 0.9rem,
+    'weight': 400,
+    'letter-spacing': 0.03125em,
+    'line-height': 1.5rem,
+    'font-family': $body-font-family,
+  ),
+  'caption': (
+    'size': 0.65rem,
+    'weight': 400,
+    'letter-spacing': 0.0333333333em,
+    'line-height': 1.25rem,
+    'font-family': $body-font-family,
+  ),
+  'overline': (
+    'size': 0.525rem,
+    'weight': 400,
+    'letter-spacing': 0.1666666667em,
+    'line-height': 1rem,
+    'font-family': $body-font-family,
+  ),
+);
+
+$tooltip-background-color: rgba(map-get($grey, 'darken-2'), 1);
+
+// Common variables
+$divider-color: #4c4c69;
+$common: (
+  'toolbar': var(--v-secondary-base),
+);
+
+// Light theme variables
+$dark-bg: rgb(37, 38, 51);
+$bd-alternative: rgb(39, 39, 54);
+$material-dark: map-merge(
+  (
+    'background': #252633,
+    'cards': $dark-bg,
+    'bg-color': $dark-bg,
+    'dividers': rgba($divider-color, 0.5),
+  ),
+  $common
+);
+
+// Dark theme variables
+$light-bg: rgb(249, 249, 249);
+$material-light: map-merge(
+  (
+    'background': #f4f4f4,
+    'cards': $light-bg,
+    'bg-color': $light-bg,
+    'dividers': rgba($divider-color, 0.25),
+  ),
+  $common
+);
+
+// Buttons
+$btn-sizes: (
+  'x-small': 22,
+  'small': 30,
+  'default': 36,
+  'large': 44,
+  'x-large': 52,
+);
+
+// Component variables
+
+$comments-divider-indent: 72px;
+$comments-divider-indent-xs: 36px;
+
+$BaseImage-radius: $border-radius-root / 2;
+
+$card-title-word-break: break-word;
+
+$scrollbar-width: 5px;
+$scrollbar-html-width: 10px;
+$scrollbar-color: var(--v-primary-base);
+$scrollbar-hover: var(--v-primary-darken1);
+$scrollbar-active: var(--v-primary-darken2);
+
+$xx-small: 390px;
+
+$sidenav-width: 300px;
+
+$container-max-widths: (
+  'md': 100%,
+  'lg': (
+    map-get($grid-breakpoints, 'lg') * 0.975,
+  ),
+  'xl': (
+    map-get($grid-breakpoints, 'xl') * 0.9375,
+  ),
+);
+
+$menu-background-color-alpha: var(--v-background-alpha) !important;
+$menu-background-color: var(--v-background-base) !important;
+$menu-background-blur: blur(7px);
+
+$poster-ratio-width: 0.716;
+$poster-ratio-height: 1.39;
+
+$carousel-caption-color: var(--v-secondary-base);
+$carousel-caption-offset: 4px;
+$carousel-caption-height: 26.4px;

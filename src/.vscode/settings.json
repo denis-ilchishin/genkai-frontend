@@ -1,0 +1,16 @@
+{
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true,
+    "source.organizeImports": true
+  },
+  "editor.tabSize": 2,
+  "remote.containers.defaultExtensions": [
+    "esbenp.prettier-vscode",
+    "octref.vetur",
+    "dbaeumer.vscode-eslint"
+  ],
+  "eslint.format.enable": true,
+  "prettier.configPath": ".prettierrc",
+  "prettier.requireConfig": true,
+  "vetur.format.defaultFormatter.html": "prettier"
+}

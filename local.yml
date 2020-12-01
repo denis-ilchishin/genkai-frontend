@@ -1,0 +1,20 @@
+version: "3.8"
+
+volumes:
+  vscode-front:
+
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: ./compose/local/Dockerfile
+    command:
+      - sh
+      - -c
+      - sleep infinity
+    env_file: ./compose/local/.env
+    volumes:
+      - .:/home/container/app
+      - vscode-front:/home/container/.vscode-server
+    ports:
+      - 3000:3000

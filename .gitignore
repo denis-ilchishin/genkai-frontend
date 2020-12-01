@@ -1,0 +1,4 @@
+volumes/dist/*
+volumes/nuxt/*
+volumes/static/*
+.env
